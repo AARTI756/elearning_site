@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aarti Sakpal | E-Learning Platform</title>
+<style>
+  :root{
+    --bg: #0f172a;          /* slate-900 */
+    --panel:#111827;        /* gray-900 */
+    --card:#0b132b;         /* deep navy */
+    --muted:#94a3b8;        /* slate-400 */
+    --text:#e5e7eb;         /* gray-200 */
+    --brand:#7c3aed;        /* violet-600 */
+    --brand-2:#22d3ee;      /* cyan-400 */
+    --accent:#a78bfa;       /* violet-300 */
+    --ok:#10b981;           /* emerald-500 */
+    --warn:#f59e0b;         /* amber-500 */
+    --danger:#ef4444;       /* red-500 */
+    --ring: rgba(124,58,237,.35);
+    --radius: 18px;
+    --shadow: 0 10px 25px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+    --grad: radial-gradient(1200px 400px at 10% -10%, rgba(124,58,237,.25), transparent 60%),
+            radial-gradient(900px 350px at 110% -20%, rgba(34,211,238,.18), transparent 60%);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; line-height:1.5}
+  a{color:inherit; text-decoration:none}
+  img{max-width:100%; display:block}
+  .container{width:min(1200px, 92%); margin:0 auto}
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:40; backdrop-filter:saturate(1.2) blur(8px);
+    background:linear-gradient(to bottom, rgba(15,23,42,.9), rgba(15,23,42,.6));
+    border-bottom:1px solid rgba(148,163,184,.12);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+  .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.3px}
+  .logo{
+    width:42px; height:42px; border-radius:12px;
+    background:conic-gradient(from 180deg at 50% 50%, var(--brand), var(--brand-2), var(--accent), var(--brand));
+    box-shadow:0 0 0 2px rgba(255,255,255,.06), 0 10px 20px rgba(124,58,237,.2);
+  }
+  .brand small{display:block; font-weight:500; color:var(--muted); letter-spacing:.2px}
+  .nav a.cta{
+    padding:10px 16px; border-radius:12px; background:linear-gradient(135deg, var(--brand), var(--brand-2));
+    box-shadow: 0 8px 20px rgba(124,58,237,.35);
+  }
+  .navlinks{display:flex; gap:18px; align-items:center}
+  .navlinks a{padding:8px 10px; color:var(--muted)}
+  .navlinks a:hover{color:#fff}
+
+  /* Hero */
+  .hero{
+    position:relative; padding:72px 0 48px;
+    background: var(--grad);
+  }
+  .hero .wrap{display:grid; grid-template-columns: 1.1fr .9fr; gap:28px; align-items:center}
+  .eyebrow{display:inline-block; font-size:12px; letter-spacing:.4px; text-transform:uppercase; color:var(--accent); margin-bottom:10px}
+  h1{font-size: clamp(32px, 4.5vw, 56px); line-height:1.08; margin:6px 0 10px}
+  .subtitle{color:var(--muted); font-size: clamp(14px, 2.1vw, 18px)}
+  .actions{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:14px;
+    border:1px solid rgba(148,163,184,.16); background:#121a33; box-shadow:var(--shadow)
+  }
+  .btn.primary{
+    background:linear-gradient(135deg, var(--brand), var(--brand-2)); border:0; color:#0b1226; font-weight:700
+  }
+  .tagline{
+    display:flex; gap:14px; align-items:center; margin-top:22px; color:var(--muted); font-size:14px
+  }
+  .stat{display:grid; grid-template-columns:auto 1fr; gap:8px 14px; align-items:center; border:1px dashed rgba(148,163,184,.25);
+        padding:14px; border-radius:16px; width:100%; max-width:480px}
+  .stat b{font-size:20px}
+  .illustration{border-radius:20px; border:1px solid rgba(148,163,184,.12); background:
+        radial-gradient(120% 100% at 0% 0%, rgba(124,58,237,.22), transparent 60%),
+        linear-gradient(180deg, #0b132b 0%, #0c1430 100%);
+        padding:10px; box-shadow:var(--shadow)}
+  .grid-dots{
+    aspect-ratio: 4/3; border-radius:14px; background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.12) 1px, transparent 1px) 0 0/18px 18px,
+      linear-gradient(145deg, rgba(124,58,237,.22), transparent 35%),
+      linear-gradient(325deg, rgba(34,211,238,.16), transparent 35%);
+    border:1px solid rgba(148,163,184,.12);
+  }
+
+  /* Section generic */
+  section{padding:56px 0}
+  .section-head{display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:18px}
+  .section-head h2{margin:0; font-size:clamp(22px, 3.2vw, 34px)}
+  .section-head p{margin:0; color:var(--muted)}
+
+  /* Categories */
+  .chips{display:flex; gap:10px; flex-wrap:wrap}
+  .chip{padding:8px 12px; border-radius:999px; border:1px solid rgba(148,163,184,.18); color:var(--muted); background:#0c142b}
+
+  /* Courses grid */
+  .cards{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+  .card{
+    border-radius:16px; border:1px solid rgba(148,163,184,.12); background:linear-gradient(180deg, #0b132b 0%, #0a1226 100%);
+    padding:16px; box-shadow:var(--shadow); transition:transform .2s ease, box-shadow .2s ease
+  }
+  .card:hover{transform: translateY(-4px)}
+  .badge{display:inline-block; font-size:12px; padding:4px 10px; border-radius:999px; background:rgba(124,58,237,.18); color:#e9d5ff; border:1px solid rgba(124,58,237,.35)}
+  .card h3{margin:10px 0 6px; font-size:18px}
+  .meta{display:flex; gap:12px; color:var(--muted); font-size:13px; margin-bottom:10px}
+  .price{margin-top:10px; display:flex; align-items:center; justify-content:space-between}
+  .pill{padding:8px 12px; border-radius:12px; background:#0f1b36; color:var(--accent); border:1px solid rgba(167,139,250,.35)}
+  .enroll{padding:10px 12px; border-radius:12px; border:1px solid rgba(148,163,184,.16)}
+  .enroll:hover{border-color:rgba(124,58,237,.55); box-shadow:0 0 0 4px var(--ring)}
+
+  /* Features */
+  .features{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+  .feat{padding:18px; border-radius:16px; border:1px solid rgba(148,163,184,.12); background:#0b132b; box-shadow:var(--shadow)}
+  .feat h4{margin:8px 0 6px}
+
+  /* Testimonials */
+  .quotes{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px}
+  .quote{padding:18px; border-radius:16px; border:1px solid rgba(148,163,184,.12); background:#0b132b}
+  .quote p{color:#cbd5e1}
+  .avatar{width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--brand-2))}
+  .who{display:flex; gap:10px; align-items:center; margin-top:10px}
+  .who small{color:var(--muted)}
+
+  /* Pricing */
+  .pricing{display:grid; grid-template-columns:repeat(3, 1fr); gap:18px}
+  .tier{padding:18px; border-radius:16px; border:1px solid rgba(148,163,184,.12); background:#0b132b}
+  .tier h3{margin:6px 0 0}
+  .big{font-size:34px; font-weight:800}
+  .list{margin:10px 0 0; padding:0; list-style:none}
+  .list li{margin:8px 0; color:#cbd5e1}
+  .buy{margin-top:12px; display:inline-block; padding:10px 14px; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#0b1226; font-weight:700}
+
+  /* FAQ */
+  details{border:1px solid rgba(148,163,184,.12); border-radius:14px; padding:14px 16px; background:#0b132b}
+  details+details{margin-top:12px}
+  summary{cursor:pointer; color:#e2e8f0}
+
+  /* CTA */
+  .cta{
+    margin-top:32px; padding:24px; border-radius:20px; border:1px solid rgba(148,163,184,.16);
+    background: radial-gradient(600px 200px at -10% 0, rgba(124,58,237,.2), transparent 60%), #0b132b;
+    display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; align-items:center;
+  }
+  .cta .note{color:var(--muted)}
+  .cta .input{display:flex; gap:10px; flex-wrap:wrap}
+  .cta input{
+    flex:1 1 220px; padding:12px 14px; border-radius:12px; border:1px solid rgba(148,163,184,.25);
+    background:#0e1833; color:#fff
+  }
+  .cta button{padding:12px 16px; border-radius:12px; border:0; font-weight:700; background:linear-gradient(135deg,var(--ok), var(--brand-2)); color:#0b1226}
+
+  /* Footer */
+  footer{padding:28px 0 48px; color:var(--muted)}
+  .foot{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap}
+  .mini{display:flex; gap:12px; flex-wrap:wrap}
+  .mini a{color:var(--muted)}
+  .mini a:hover{color:#fff}
+
+  /* Responsive */
+  @media (max-width: 960px){
+    .hero .wrap{grid-template-columns: 1fr}
+    .cards{grid-template-columns: 1fr 1fr}
+    .features{grid-template-columns:1fr 1fr}
+    .quotes{grid-template-columns:1fr 1fr}
+    .pricing{grid-template-columns:1fr}
+    .cta{grid-template-columns:1fr}
+  }
+  @media (max-width:640px){
+    .cards, .features, .quotes{grid-template-columns:1fr}
+    .navlinks{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <div>Aarti Sakpal <span style="opacity:.7; font-weight:600">E-Learning</span></div>
+        <small>Learn · Upskill · Succeed</small>
+      </div>
+    </div>
+    <nav class="navlinks">
+      <a href="#courses">Courses</a>
+      <a href="#features">Why Us</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container wrap">
+      <div>
+        <span class="eyebrow">By Aarti Sakpal</span>
+        <h1>Master in-demand skills with bite-sized, industry-ready courses.</h1>
+        <p class="subtitle">Project-driven lessons, downloadable resources, and completion certificates you can showcase.</p>
+        <div class="actions">
+          <a href="#courses" class="btn primary">Browse Popular Courses →</a>
+          <a href="#pricing" class="btn">See Plans</a>
+        </div>
+        <div class="tagline">
+          <span class="pill">New: AI & Data Track</span>
+          <span>•</span>
+          <span>Trusted by 5,000+ learners</span>
+        </div>
+
+        <div class="stat" style="margin-top:16px">
+          <div style="width:12px; height:12px; border-radius:50%; background:var(--ok)"></div>
+          <div>
+            <b>97% satisfaction</b><br>
+            <small class="muted">Average rating across all cohorts in 2024–2025</small>
+          </div>
+        </div>
+      </div>
+      <div class="illustration">
+        <div class="grid-dots" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section id="courses">
+    <div class="container">
+      <div class="section-head">
+        <h2>Explore Courses</h2>
+        <p>Curated tracks designed by Aarti Sakpal</p>
+      </div>
+      <div class="chips" style="margin-bottom:16px">
+        <span class="chip">Data Science</span>
+        <span class="chip">Web Development</span>
+        <span class="chip">Cloud & DevOps</span>
+        <span class="chip">Programming</span>
+        <span class="chip">Cybersecurity</span>
+        <span class="chip">Soft Skills</span>
+      </div>
+
+      <div class="cards">
+        <!-- Card 1 -->
+        <article class="card">
+          <span class="badge">Beginner</span>
+          <h3>Python Foundations</h3>
+          <div class="meta">
+            <span>12 modules</span><span>•</span><span>6 hrs</span><span>•</span><span>Certificate</span>
+          </div>
+          <p>Write clean Python, use libraries, and build your first CLI and web micro-project.</p>
+          <div class="price">
+            <span class="pill">₹999</span>
+            <a class="enroll" href="#contact">Enroll</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <span class="badge" style="background:rgba(16,185,129,.18); border-color:rgba(16,185,129,.4); color:#a7f3d0">Popular</span>
+          <h3>Full-Stack Web (HTML/CSS/JS)</h3>
+          <div class="meta">
+            <span>18 modules</span><span>•</span><span>10 hrs</span><span>•</span><span>Projects</span>
+          </div>
+          <p>From semantic HTML to responsive layouts and interactivity. Deploy on Nginx/IIS.</p>
+          <div class="price">
+            <span class="pill">₹1499</span>
+            <a class="enroll" href="#contact">Enroll</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <span class="badge" style="background:rgba(234,179,8,.18); border-color:rgba(234,179,8,.4); color:#fde68a">New</span>
+          <h3>Azure & AWS Basics</h3>
+          <div class="meta">
+            <span>15 modules</span><span>•</span><span>8 hrs</span><span>•</span><span>Hands-on</span>
+          </div>
+          <p>Spin up VMs, serve static sites with Nginx/IIS, and automate CI/CD basics.</p>
+          <div class="price">
+            <span class="pill">₹1799</span>
+            <a class="enroll" href="#contact">Enroll</a>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <span class="badge">Intermediate</span>
+          <h3>Data Analysis with Pandas</h3>
+          <div class="meta">
+            <span>14 modules</span><span>•</span><span>7 hrs</span><span>•</span><span>Datasets</span>
+          </div>
+          <p>Clean, analyze, and visualize data. Export insights and dashboards.</p>
+          <div class="price">
+            <span class="pill">₹1299</span>
+            <a class="enroll" href="#contact">Enroll</a>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="card">
+          <span class="badge">Beginner</span>
+          <h3>Git & GitHub Essentials</h3>
+          <div class="meta">
+            <span>10 modules</span><span>•</span><span>5 hrs</span><span>•</span><span>Flow</span>
+          </div>
+          <p>Version control fundamentals, branching strategies, and pull requests.</p>
+          <div class="price">
+            <span class="pill">₹799</span>
+            <a class="enroll" href="#contact">Enroll</a>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="card">
+          <span class="badge">Advanced</span>
+          <h3>DevOps Starter (CI/CD)</h3>
+          <div class="meta">
+            <span>16 modules</span><span>•</span><span>9 hrs</span><span>•</span><span>Tooling</span>
+          </div>
+          <p>Intro to pipelines, containers, and deployment strategies across clouds.</p>
+          <div class="price">
+            <span class="pill">₹1999</span>
+            <a class="enroll" href="#contact">Enroll</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <h2>Why learn with Aarti?</h2>
+        <p>Real-world projects, clear roadmaps, and personal guidance</p>
+      </div>
+      <div class="features">
+        <div class="feat">
+          <div class="badge">Outcome-driven</div>
+          <h4>Project-First Curriculum</h4>
+          <p>Each module ends with a practical mini-project you can add to your portfolio.</p>
+        </div>
+        <div class="feat">
+          <div class="badge">Confidence</div>
+          <h4>Step-by-Step Demos</h4>
+          <p>Crystal-clear explanations and downloadable notes—no fluff, only what matters.</p>
+        </div>
+        <div class="feat">
+          <div class="badge">Support</div>
+          <h4>Doubt-Clearing</h4>
+          <p>Weekly office hours for Q&A and code reviews to keep you moving forward.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>Learner Stories</h2>
+        <p>What students say after completing courses</p>
+      </div>
+      <div class="quotes">
+        <div class="quote">
+          <p>“Aarti’s Azure & AWS basics made deployment finally click. Loved the labs!”</p>
+          <div class="who">
+            <div class="avatar"></div>
+            <div><b>Neha G.</b><br><small>Cloud beginner</small></div>
+          </div>
+        </div>
+        <div class="quote">
+          <p>“The Python course is the best intro I’ve taken—short, crisp, and practical.”</p>
+          <div class="who">
+            <div class="avatar"></div>
+            <div><b>Rahul S.</b><br><small>Data enthusiast</small></div>
+          </div>
+        </div>
+        <div class="quote">
+          <p>“I deployed my first site on Nginx using the exact steps taught here.”</p>
+          <div class="who">
+            <div class="avatar"></div>
+            <div><b>Amrita P.</b><br><small>Frontend dev</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container">
+      <div class="section-head">
+        <h2>Simple Pricing</h2>
+        <p>Start free, grow when you’re ready</p>
+      </div>
+      <div class="pricing">
+        <div class="tier">
+          <h3>Starter</h3>
+          <div class="big">FREE</div>
+          <ul class="list">
+            <li>2 beginner courses</li>
+            <li>Downloadable notes</li>
+            <li>Community access</li>
+          </ul>
+          <a class="buy" href="#contact">Get Started</a>
+        </div>
+        <div class="tier" style="border-color:rgba(124,58,237,.45)">
+          <h3>Pro</h3>
+          <div class="big">₹1,999</div>
+          <ul class="list">
+            <li>All Core courses</li>
+            <li>Certificates</li>
+            <li>Weekly office hours</li>
+          </ul>
+          <a class="buy" href="#contact">Upgrade</a>
+        </div>
+        <div class="tier">
+          <h3>Ultimate</h3>
+          <div class="big">₹4,999</div>
+          <ul class="list">
+            <li>Everything in Pro</li>
+            <li>Project reviews</li>
+            <li>1-to-1 guidance</li>
+          </ul>
+          <a class="buy" href="#contact">Join Ultimate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <h2>FAQ</h2>
+        <p>Answers to common questions</p>
+      </div>
+      <details>
+        <summary>Do I get a certificate?</summary>
+        <p>Yes. Complete the course and pass the final quiz to receive a shareable certificate from Aarti Sakpal E-Learning.</p>
+      </details>
+      <details>
+        <summary>Are the courses beginner-friendly?</summary>
+        <p>Absolutely. Many tracks start from scratch and progressively build your confidence with hands-on tasks.</p>
+      </details>
+      <details>
+        <summary>How do I access materials?</summary>
+        <p>Once enrolled, you’ll receive a dashboard link with videos, notes, and project files.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA -->
+  <section id="contact">
+    <div class="container">
+      <div class="cta">
+        <div>
+          <h2 style="margin:0 0 6px">Get a custom learning roadmap</h2>
+          <p class="note">Tell me your goal (job change, upskilling, or college prep). I’ll email a 30-day plan tailored for you.</p>
+        </div>
+        <form class="input" onsubmit="event.preventDefault(); alert('Thanks! I will reach out soon. — Aarti');">
+          <input type="text" name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Email address" required />
+          <button type="submit">Request Plan</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div>© <span id="year"></span> <b>Aarti Sakpal</b> — E-Learning Platform</div>
+    <div class="mini">
+      <a href="#courses">Courses</a>
+      <a href="#features">Why Us</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
